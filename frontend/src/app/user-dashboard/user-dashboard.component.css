@@ -1,0 +1,60 @@
+/* h1{
+    font-size:xx-large;
+    text-align: center;
+    color: teal;
+}
+
+h2{
+    font-size:x-large;
+    text-align: center;
+    color: brown;
+} */
+
+img{
+    filter: brightness(30%);
+    width: 100%;
+    object-fit: contain;
+    /* height: 100vh; */
+
+}
+
+
+
+.container-fluid {
+   background-color: rgb(255, 255, 255);
+   
+   background-size: 100% 100%;
+   background-attachment: fixed;
+   
+
+   position: relative;
+   text-align: center;
+   color: white;
+ }
+
+ .centered {
+   position: absolute;
+    top: 250px;
+   left: 50%;
+   transform: translate(-50%, -50%);
+ }
+
+ .top-left{
+   position: absolute;
+   top:100px;
+   left:50px;
+   color: rgba(201, 202, 134, 0.932);
+ }
+
+ h2{
+    font-size: x-large;
+    margin-top: 50px;
+  color: rgb(37, 6, 6);
+ }
+
+ h1{
+    
+    font-size: xx-large;
+  color: rgb(224, 191, 142);
+ }
+

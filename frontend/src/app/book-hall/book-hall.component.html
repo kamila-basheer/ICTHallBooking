@@ -1,0 +1,185 @@
+<div class="row h-100 justify-content-center align-items-center flex-sm-column flex-lg-row bg primary m-0">
+
+    <div class="row m-0">
+    <div class="col-sm-12 col-lg-5  col-md-7 mt-auto ">
+      <h1 class="text-left">Book your Hall</h1>
+      <hr class="line text-left">
+      <img src="../../assets/hall.jpg" alt="" srcset="" style="width: 100%;">
+    </div>
+      <div class="col-sm-12 col-lg-7 col-md-7 px-lg-4 m-lg-auto m-md-auto px-sm-5">
+        
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf=err>
+              <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+  
+              <strong>Selected Time Slot Not available. </strong> Please try again.
+            </div>
+  
+          <div class="alert alert-danger" role="alert" *ngIf=errmsg id="errbox">
+              <span type="button" class="close"  aria-label="Close"><span aria-hidden="true">&times;</span></span>
+  
+          <strong>{{errmsg}}</strong> You should check in on some of those fields below.
+          </div>
+  
+          <form (ngSubmit)="timecheck()" #bookform ="ngForm" name="booking"> 
+  
+              <div class="row mb-3">
+              <label for="appt-time" class="col-sm-3 col-form-label">Choose the Hall</label>
+              <div class="col-sm-9">
+              <mat-form-field appearance="fill">
+                  <!-- <mat-label>Select Hall</mat-label> -->
+                  <mat-select required #hall="ngModel" [(ngModel)]="time.hallname" [class.is-invalid]="hall.invalid" name="hall">
+                  <mat-option *ngFor="let hall of Halls" value={{hall}}>
+                  {{hall}}
+                  </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              </div>
+              </div>
+  
+  
+  
+              <div class="row mb-3">
+              <label for="appt-time" class="col-sm-3 col-form-label">Choose the Date</label>
+              <div class="col-sm-9">
+              <input [matDatepicker]="picker" name="Date" [(ngModel)]=time.date ng-model-options="{timezone: 'utc+05:30'}" [min]="mindate" [max]="date" #Date="ngModel" [class.is-invalid]="Date.invalid"> 
+              <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              </div>
+              </div>
+  
+              <div class="row mb-3">
+              <label for="appt-time" class="col-sm-3 col-form-label">Choose the Start time</label>
+              <div class="col-sm-9">
+               <input  type="time" name="fromtime" [(ngModel)]=time.fromtime required class="form-control" #fromtime="ngModel" [class.is-invalid]="fromtime.invalid" placeholder="HH:mm:ss">
+              </div>
+              </div>
+  
+              <div class="row mb-3">
+                  <label for="appt-time" class="col-sm-3 col-form-label">Choose the end time</label>
+                  <div class="col-sm-9">
+                   <input id="appt-time" type="time" name="appt-time"  name="toTime" #totime="ngModel" [(ngModel)]=time.totime  class="form-control" required [class.is-invalid]="totime.invalid">
+                  </div>
+              </div>
+             
+  
+              <input type="submit" value="check availablity" [disabled]="bookform.form.invalid" class="btn btn-primary">
+          </form>
+  
+  
+  
+          <div class="alert alert-success mt-3" role="alert" *ngIf=message>
+              <!-- <h4 class="alert-heading">Well done!</h4> -->
+              <p> Hall Available on selected date</p>
+              <hr>
+              <p>Hall Name - {{message.hallName}}</p>
+              <p>Date - {{message.Date}}</p>
+              <p>Time- {{message.fromTime}} - {{message.toTime}}</p>
+              <button class="btn btn-warning"  (click)="bookhall()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">Book Hall</button>
+            </div>
+  
+      </div>
+  
+  
+      
+  </div>
+  
+  
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+  
+          <div class="modal-body text-center">
+              <img src="https://img.icons8.com/color/48/000000/checked-2--v1.png"/>
+  <p>Your Booking has been confirmed</p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-success " data-dismiss="modal" (click)="viewcal();">View calendar</button>
+          </div>
+        </div>
+    
+    
+      </div>
+  
+    </div>
+    </div>
+  
+
+<!-- <div class="row h-100 justify-content-center align-items-center flex-column">
+    <div class="col-5 p-4 shadow">
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf=err>
+            <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+
+            <strong>Selected Time Slot Not available. </strong> Please try again.
+          </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf=errmsg id="errbox">
+            <span type="button" class="close"  aria-label="Close"><span aria-hidden="true">&times;</span></span>
+
+        <strong>{{errmsg}}</strong> You should check in on some of those fields below.
+        </div>
+
+        <form (ngSubmit)="timecheck()" #bookform ="ngForm" name="booking"> 
+
+            <div class="row mb-3">
+            <label for="appt-time" class="col-sm-3 col-form-label">Choose the Hall</label>
+            <div class="col-sm-9">
+            <mat-form-field appearance="fill">
+                
+                <mat-select required #hall="ngModel" [(ngModel)]="time.hallname" [class.is-invalid]="hall.invalid" name="hall">
+                <mat-option *ngFor="let hall of Halls" value={{hall}}>
+                {{hall}}
+                </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+            </div>
+
+
+
+            <div class="row mb-3">
+            <label for="appt-time" class="col-sm-3 col-form-label">Choose the Date</label>
+            <div class="col-sm-9">
+            <input [matDatepicker]="picker" name="Date" [(ngModel)]=time.date ng-model-options="{timezone: 'utc+05:30'}" [min]="mindate" [max]="date" #Date="ngModel" [class.is-invalid]="Date.invalid"> 
+            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            </div>
+            </div>
+
+            <div class="row mb-3">
+            <label for="appt-time" class="col-sm-3 col-form-label">Choose the Start time</label>
+            <div class="col-sm-9">
+             <input  type="time" name="fromtime" [(ngModel)]=time.fromtime required class="form-control" #fromtime="ngModel" [class.is-invalid]="fromtime.invalid" placeholder="HH:mm:ss">
+            </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="appt-time" class="col-sm-3 col-form-label">Choose the end time</label>
+                <div class="col-sm-9">
+                 <input id="appt-time" type="time" name="appt-time"  name="toTime" #totime="ngModel" [(ngModel)]=time.totime  class="form-control" required [class.is-invalid]="totime.invalid">
+                </div>
+            </div>
+           
+
+            <input type="submit" value="check availablity" [disabled]="bookform.form.invalid" class="btn btn-primary">
+        </form>
+
+
+
+        <div class="alert alert-success mt-3" role="alert" *ngIf=message>
+       
+            <p> Hall Available on selected date</p>
+            <hr>
+            <p>Hall Name - {{message.hallName}}</p>
+            <p>Date - {{message.Date}}</p>
+            <p>Time- {{message.fromTime}} - {{message.toTime}}</p>
+            <button class="btn btn-warning"  (click)="bookhall()">Book Hall</button>
+          </div>
+
+    </div>
+
+
+    
+</div> -->
+
+

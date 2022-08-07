@@ -1,0 +1,31 @@
+
+    <div class="row justify-content-center align-items-center">
+    <div class="col-lg-10 p-4 shadow">
+        <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ICTAK booking ID</th>
+                <th id="width" scope="col">Name</th>
+                <th id="width" scope="col">Hall Name</th>
+                <th id="width" scope="col">Date</th>
+                <th scope="col">Time Slots</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of bookings">
+                <th scope="row">{{i._id}}</th>
+                <td>{{i.associateName}}</td>
+                <td>{{i.hallName}}</td>
+                <td>{{i.Date}}</td>
+                <td>{{i.fromTime}} - {{i.toTime}}</td>
+    
+              </tr>
+    
+            </tbody>
+          </table>
+        
+    
+    </div>
+    </div>
+    <br><br><br>
+    

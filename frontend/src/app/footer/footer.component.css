@@ -1,0 +1,15 @@
+/* .container{
+    padding-top: 15px;
+} */
+
+footer{
+    width: 100%;
+    /* position: fixed; */
+    bottom: 0;
+    z-index: 99;
+    
+}
+.footer{
+    height: 100px;
+    background-color: black;
+}

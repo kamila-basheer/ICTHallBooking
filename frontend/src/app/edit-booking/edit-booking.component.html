@@ -1,0 +1,204 @@
+<div class="row h-100 justify-content-center align-items-center flex-sm-column flex-lg-row bg primary m-0 w-100">
+
+    <div class="row m-0 w-50">
+        <h1>Edit Booking</h1>
+
+      <div class="col-sm-12 col-lg-10 col-md-10 px-lg-4 m-lg-auto m-md-auto px-sm-5">
+           <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf=err>
+              <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+  
+              <strong>Selected Time Slot Not available. </strong> Please try again.
+            </div>
+  
+          <div class="alert alert-danger" role="alert" *ngIf=errmsg id="errbox">
+              <span type="button" class="close"  aria-label="Close"><span aria-hidden="true">&times;</span></span>
+  
+          <strong>{{errmsg}}</strong> You should check in on some of those fields below.
+          </div>
+  
+          <form  #bookform ="ngForm" name="booking" (ngSubmit)="admcheckslot()"> 
+  
+              <div class="row mb-3">
+              <label for="appt-time" class="col-sm-3 col-form-label">Choose the Hall</label>
+              <div class="col-sm-9">
+              <mat-form-field appearance="fill">
+                  <!-- <mat-label>Select Hall</mat-label> -->
+                  <mat-select required #hall="ngModel" [(ngModel)]="time.hallname" [class.is-invalid]="hall.invalid" name="hall">
+                  <mat-option *ngFor="let hall of Halls" value={{hall}}>
+                  {{hall}}
+                  </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="appt-time" class="col-sm-3 col-form-label">Choose the Date</label>
+                <div class="col-sm-9">
+                <input [matDatepicker]="picker" name="Date" [(ngModel)]=time.DATE ng-model-options="{timezone: 'utc+05:30'}"  #Date="ngModel" [class.is-invalid]="Date.invalid"> 
+                <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                </div>
+                </div>
+
+            <div class="row mb-3">
+                <label for="appt-time" class="col-sm-3 col-form-label">Choose the Start time</label>
+                <div class="col-sm-9">
+                    <input  type="time" name="fromtime" [(ngModel)]=time.fromTime required class="form-control" #fromtime="ngModel" [class.is-invalid]="fromtime.invalid" placeholder="HH:mm:ss">
+                </div>
+                </div>   
+          
+            <div class="row mb-3">
+                <label for="appt-time" class="col-sm-3 col-form-label">Choose the end time</label>
+                <div class="col-sm-9">
+                    <input  type="time" name="totime" [(ngModel)]=time.toTime required class="form-control" #totime="ngModel" [class.is-invalid]="totime.invalid" placeholder="HH:mm:ss">
+                </div>
+            </div>   
+              
+  
+              <input type="submit" value="check availablity" [disabled]="bookform.form.invalid" class="btn btn-primary">
+          </form>
+
+          <div class="alert alert-success mt-3" role="alert" *ngIf=message>
+            <!-- <h4 class="alert-heading">Well done!</h4> -->
+            <p> Hall Available on selected date</p>
+            <hr>
+            <p>Hall Name - {{message.hallName}}</p>
+            <p>Date - {{msgdate}}</p>
+            <p>Time- {{msgfrom}} - {{msgto}}</p>
+            <button class="btn btn-warning"  (click)="bookhall()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">Book Hall</button>
+          </div>
+
+  
+  
+      </div>
+  
+  
+      
+  </div>
+  
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body text-center">
+            <img src="https://img.icons8.com/color/48/000000/checked-2--v1.png"/>
+<p>The  Booking has been updated successfully</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-success " data-dismiss="modal" (click)="viewbookings();">View all bookings</button>
+        </div>
+        
+      </div>
+  
+  
+    </div>
+
+  </div>
+
+    </div>
+  
+
+
+<!-- <div class="row h-100 justify-content-center align-items-center flex-sm-column flex-lg-row bg primary m-0 w-100">
+
+    <div class="row m-0 w-50">
+        <h1>Edit Booking</h1>
+
+      <div class="col-sm-12 col-lg-10 col-md-10 px-lg-4 m-lg-auto m-md-auto px-sm-5">
+           <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf=err>
+              <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+  
+              <strong>Selected Time Slot Not available. </strong> Please try again.
+            </div>
+  
+          <div class="alert alert-danger" role="alert" *ngIf=errmsg id="errbox">
+              <span type="button" class="close"  aria-label="Close"><span aria-hidden="true">&times;</span></span>
+  
+          <strong>{{errmsg}}</strong> You should check in on some of those fields below.
+          </div>
+  
+          <form  #bookform ="ngForm" name="booking" (ngSubmit)="admcheckslot()"> 
+  
+              <div class="row mb-3">
+              <label for="appt-time" class="col-sm-3 col-form-label">Choose the Hall</label>
+              <div class="col-sm-9">
+              <mat-form-field appearance="fill">
+               
+                  <mat-select required #hall="ngModel" [(ngModel)]="time.hallname" [class.is-invalid]="hall.invalid" name="hall">
+                  <mat-option *ngFor="let hall of Halls" value={{hall}}>
+                  {{hall}}
+                  </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="appt-time" class="col-sm-3 col-form-label">Choose the Date</label>
+                <div class="col-sm-9">
+                <input [matDatepicker]="picker" name="Date" [(ngModel)]=time.DATE ng-model-options="{timezone: 'utc+05:30'}"  #Date="ngModel" [class.is-invalid]="Date.invalid"> 
+                <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                </div>
+                </div>
+
+            <div class="row mb-3">
+                <label for="appt-time" class="col-sm-3 col-form-label">Choose the Start time</label>
+                <div class="col-sm-9">
+                    <input  type="time" name="fromtime" [(ngModel)]=time.fromTime required class="form-control" #fromtime="ngModel" [class.is-invalid]="fromtime.invalid" placeholder="HH:mm:ss">
+                </div>
+                </div>   
+          
+            <div class="row mb-3">
+                <label for="appt-time" class="col-sm-3 col-form-label">Choose the end time</label>
+                <div class="col-sm-9">
+                    <input  type="time" name="totime" [(ngModel)]=time.toTime required class="form-control" #totime="ngModel" [class.is-invalid]="totime.invalid" placeholder="HH:mm:ss">
+                </div>
+            </div>   
+              
+  
+              <input type="submit" value="check availablity" [disabled]="bookform.form.invalid" class="btn btn-primary">
+          </form>
+
+          <div class="alert alert-success mt-3" role="alert" *ngIf=message>
+      
+            <p> Hall Available on selected date</p>
+            <hr>
+            <p>Hall Name - {{message.hallName}}</p>
+            <p>Date - {{msgdate}}</p>
+            <p>Time- {{msgfrom}} - {{msgto}}</p>
+            <button class="btn btn-warning"  (click)="bookhall()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">Book Hall</button>
+          </div>
+
+  
+  
+      </div>
+  
+  
+      
+  </div>
+  
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body text-center">
+            <img src="https://img.icons8.com/color/48/000000/checked-2--v1.png"/>
+<p>The  Booking has been updated successfully</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-success " data-dismiss="modal" (click)="viewbookings();">View all bookings</button>
+        </div>
+        
+      </div>
+  
+  
+    </div>
+
+  </div>
+
+    </div>
+  
+   -->
+  

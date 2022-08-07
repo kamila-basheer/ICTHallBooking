@@ -1,0 +1,11 @@
+.card{
+    margin-top:75px;
+    margin-bottom: 25px;
+}
+
+.alert-danger{
+    font-size: small;
+    background-color: white;
+    color: red;
+    font-weight:600;
+}
