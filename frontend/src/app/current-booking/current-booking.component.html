@@ -1,7 +1,7 @@
 
     <div class="row justify-content-center align-items-center">
     <div class="col-lg-10 p-4 shadow">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" *ngIf="i">
             <thead>
               <tr>
                 <th scope="col">ICTAK booking ID</th>
@@ -25,6 +25,9 @@
           </table>
         
     
+    <div *ngIf="i==null">
+      <h1 class="text-center">You do not have any bookings for this week.</h1>
+    </div>
     </div>
     </div>
     <br><br><br>
